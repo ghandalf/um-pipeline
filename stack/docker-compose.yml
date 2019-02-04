@@ -1,0 +1,100 @@
+version: '3.7'
+
+services:
+
+  # application:
+  #   container_name: ${NAMES[0]}
+  #   image: ${IMAGES[0]}
+  #   user: ${USERS[0]}
+  #   ports: ['${PORTS[0]}:${PORTS[0]}']
+  #   volumes:
+  #     # - ./config/application/*.tar.gz:/usr/share/analytic/*.tar.gz
+  #     # - ./config/application/service.sh:/usr/share/analytic/service.sh
+  #     - application-data:${PATHS[0]}/data
+  #   #restart: always
+  #   depends_on: ['artifactory']
+  #   networks: ['${NETWORKS[0]']
+  
+  # jenkins:
+  #   container_name: jenkins
+  #   image: ghandalf/jenkins:${CONTAINERS_VERSION}
+  #   hostname: jenkins
+  #   user: jenkins
+  #   ports: ['32183:32183']
+  #   volumes:
+  #     # - ./config/jenkins/system/jenkins.sh:/usr/profile.d/jenkins.sh
+  #     # - ./config/jenkins/system/service.sh:/usr/share/jenkins/service.sh
+  #     - jenkins-data:/usr/share/jenkins/data
+  #   #restart: always
+  #   depends_on: ['gitlab']
+  #   networks: ['pipeline_net']
+
+  # nexus:
+  #   container_name: nexus
+  #   image: ghandalf/nexus:${CONTAINERS_VERSION}
+  #   hostname: nexus
+  #   user: nexus
+  #   ports: ['32181:32181']
+  #   volumes:
+  #     - nexus-data:/usr/share/nexus/data
+  #   #restart: always
+  #   depends_on: ['jenkins']
+  #   networks: ['pipeline_net']
+
+  # subversion:
+  #   container_name: subversion
+  #   image: ghandalf/subversion:${CONTAINERS_VERSION}
+  #   hostname: subversion
+  #   user: subversion
+  #   ports: ['32182:32182']
+  #   volumes:
+  #     - subversion-data:/usr/share/subversion/data
+  #   #restart: always
+  #   # depends_on: ['jenkins']
+  #   networks: ['pipeline_net']
+
+  # see: https://docs.gitlab.com/omnibus/docker/
+  gitlab:
+    container_name: gitlab
+    image: ghandalf/gitlab:${CONTAINERS_VERSION}
+    hostname: gitlab
+    # user: gitlab
+    ports: ['32184:80', '32122:22', '32143:443']
+    # environment:
+    #   GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+    # configs:
+    #   - source: gitlab
+    #   - target: /omnibus_config.rb
+    # secrets:
+    #   - gitlab_root_password
+    volumes:
+    #   - ./config/gitlab/system/conf/:/etc/gitlab/
+      - gitlab-data:/usr/share/gitlab/data
+    networks: ['pipeline_net']
+
+  # gogs:
+  #   container_name: gogs
+  #   image: ghandalf/gogs:${CONTAINERS_VERSION}
+  #   hostname: gogs
+  #   ports: ['32294:80', '32292:22', '32293:443']
+  #   volumes:
+  #     - gogs-data:/usr/share/gogs/data
+  #   networks: ['pipeline_net']
+
+volumes:
+  application-data:
+    driver: local
+  artifactory-data:
+    driver: local
+  gitlab-data:
+    driver: local
+  jenkins-data:
+    driver: local
+  nexus-data:
+    driver: local
+  subversion-data:
+    driver: local
+  gogs-data:
+    driver: local
+
+networks: { pipeline_net:{} }

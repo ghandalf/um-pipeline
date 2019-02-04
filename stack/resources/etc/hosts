@@ -1,0 +1,6 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+# Use to avoid Ip Address, once connected to Racksapce VPN, use those DNS names to navigate
+172.21.0.35 tools.rackspace.com # Jenkins:8080, Nexus:8081, Sonar Qube:9000, Suversion:/svn/wwwCFNAcom, Nagios:/nagios/, Splunk:8000
+172.21.0.45 dev.rackspace.com # This is the Linux Virtual Machine that they call Linux Box
