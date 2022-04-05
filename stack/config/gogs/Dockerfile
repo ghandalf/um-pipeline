@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.15.4
 
 LABEL Author="Francis Ouellet <fouellet@dminc.com>"
 LABEL Description="Base on Alpine"
